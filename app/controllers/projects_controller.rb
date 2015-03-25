@@ -16,9 +16,9 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     if @project.save
-      render :index
+      redirect_to @project
     else
-      redirect_to :new
+      render :new
     end
   end
 
@@ -34,8 +34,8 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @event.destroy
-    render :index
+    @project.destroy
+    redirect_to projects_path
   end
 
   private
