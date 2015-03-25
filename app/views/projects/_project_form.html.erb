@@ -1,0 +1,16 @@
+<form role="form">
+  <div class="form-group">
+		<%= form_for @project do |f| %>
+			<%= f.label :name	 %> 
+		  <%= f.text_field :name, class: 'form-control' %>
+
+			<%= f.label :description %> 
+		  <%= f.text_area :description, class: 'form-control'  %>
+
+		  <%= f.label :due %>: 
+			<%= f.text_field :due_date, class: 'form-control'  %>			  
+
+		  <%= f.submit "Submit", class: "btn submit-btn"  %>
+		<% end %>
+	</div>
+</form>
