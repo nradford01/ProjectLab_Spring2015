@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
       flash[:success] = "Project Created"
       redirect_to projects_path
     else
-      flash[:error] = "Please fill in every field and ensure the due date is in the future."
+      flash[:danger] = "Please fill in every field and ensure the due date is in the future."
       render :new
     end
   end
@@ -30,9 +30,9 @@ class ProjectsController < ApplicationController
   def update
     if @project.update(project_params)
       flash[:success] = "Updated the project: '#{@project.name}'"
-      redirect_to @project
+      redirect_to projects_path
     else
-      flash[:error] = "Please fill in every field and ensure the due date is in the future."
+      flash[:danger] = "Please fill in every field and ensure the due date is in the future."
       render :edit
     end
   end
