@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'users/profile'
+
+  get 'users/show'
+
+  get 'users/index'
+
   devise_for :users, controllers: {
         sessions: 'sessions'
       }
