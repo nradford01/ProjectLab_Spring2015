@@ -4,6 +4,7 @@ class ProjectsControllerTest < ActionController::TestCase
 	def setup
 		@project = projects(:one)
 		@other_project = projects(:two)
+		@new_params = { name: "Updated", description: "This is updated"}
 	end
 
 	test "should create project" do
@@ -24,5 +25,11 @@ class ProjectsControllerTest < ActionController::TestCase
 		get :edit, id: @project.id
 		assert_response :success
 		assert_template :edit
+	end
+
+	test 'test should update' do 
+		patch :update, id: @project.id, project: @new_params
+		project = assigns(:project)
+		assert_equal project.name, @new_params[:name]
 	end
 end

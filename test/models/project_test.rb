@@ -17,7 +17,7 @@ class ProjectTest < ActiveSupport::TestCase
 
 	test "name should be present " do
     @project.name = " "
-    assert_not @project.valid?
+    assert @project.invalid?
   end
 
   test "description should be present " do
