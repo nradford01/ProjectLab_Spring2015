@@ -1,8 +1,8 @@
 class Project < ActiveRecord::Base
 	
-validates :name, presence: true
-validates :description, presence: true
-validate :past_due
+	validates :name, presence: true
+	validates :description, presence: true
+	validate :past_due
 
 	def past_due
 		if due_date <= Time.now
