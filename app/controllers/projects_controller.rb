@@ -16,8 +16,10 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     if @project.save
+      flash[:success] = "Project Created"
       redirect_to projects_path
     else
+      flash[:error] = "Please fill in every field and ensure the due date is in the future."
       render :new
     end
   end
@@ -27,14 +29,17 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
+      flash[:success] = "Updated the project: '#{@project.name}'"
       redirect_to @project
     else
+      flash[:error] = "Please fill in every field and ensure the due date is in the future."
       render :edit
     end
   end
 
   def destroy
     @project.destroy
+    flash[:success] = "Destroyed the project named: '#{@project.name}'"
     redirect_to projects_path
   end
 

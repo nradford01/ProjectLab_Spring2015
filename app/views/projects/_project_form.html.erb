@@ -1,12 +1,12 @@
   <div class="form-group">
-		<%= form_for Project.new do |f| %>
+		<%= form_for @project do |f| %>
 			<%= f.label :name	 %> 
 		  <%= f.text_field :name, class: 'form-control' %>
 
 			<%= f.label :description %> 
 		  <%= f.text_area :description, class: 'form-control'  %>
 
-		  <%= f.label :due_date %>: 
+		  <%= f.label :due_date %> 
 			<%= f.datetime_select :due_date, class: 'form-control'  %>			  
 
 		  <%= f.submit "Submit", class: "btn submit-btn"  %>
