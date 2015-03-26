@@ -33,14 +33,3 @@ class ProjectsControllerTest < ActionController::TestCase
 		assert_equal project.name, @new_params[:name]
 	end
 end
-
-
-
-
-
-
-
-
-
-
-
