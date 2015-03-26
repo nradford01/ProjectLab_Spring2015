@@ -9,7 +9,7 @@
 	<body>
 		<%= render 'layouts/navbar' %>
 		<% flash.each do |key, value| %>
-			<div class="alert alert-<%= key %>"><%= value %></div>
+			<div class="container alert alert-<%= key %>"><%= value %></div>
 		<% end %>
 		<%= yield %>
 	</body>
