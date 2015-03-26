@@ -4,7 +4,7 @@
 	<div class = 'col-sm-4'>
 		<h3>User: <%= user.first_name%> <%= user.last_name %></h3>
 		<h3>Email: <%= user.email%></h3>
-		<h4><%= link_to 'View Profile', users_show_path(user) %></h4>
+		<h4><%= link_to 'View Profile', user_path(user.id) %></h4>
 	</div>
 	<% end %>
 </div>
