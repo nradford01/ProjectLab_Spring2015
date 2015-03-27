@@ -16,7 +16,7 @@
 			  <tr>
 				  <td><%= project.name %></td>
 				  <td><%= project.description %></td>
-				  <td><%= project.due_date %></td>
+				  <td><%= project.due_date.strftime("%B %d, %Y") %></td>
 				  <td><%= distance_of_time_in_words_to_now(project.due_date) %></td>
 				  <td>
 				  	<div class="btn-group btn-group-xs">

@@ -9,4 +9,6 @@ class Project < ActiveRecord::Base
 			errors.add(:due_date, "nothing in the past please")
 		end
 	end
+
+  has_many :tasks, dependent: :destroy
 end
