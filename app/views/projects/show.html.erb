@@ -2,4 +2,40 @@
 	<h2>Project: <%= @project.name  %></h2>
 	<p>Description: <%= @project.description %></p>
 	<p>Due Date: <%= @project.due_date %></p>
+
+  <h2>
+  Tasks: 
+  <%= link_to "Add Task", new_project_task_path(@project), class: "btn btn-primary" %>
+  </h2>
+
+  <table class = 'table'>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Due Date(Mountain Time)</th>
+          <th>Time left</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @project.tasks.each do |task| %>
+          <tr>
+            <td><%= task.name %></td>
+            <td><%= task.description %></td>
+            <td><%= task.due_date.strftime("%B %d, %Y") %></td>
+            <td><%= distance_of_time_in_words_to_now(task.due_date) %></td>
+            <td>
+              <div class="btn-group btn-group-xs">
+                <%= link_to 'Edit', edit_project_task_path(@project, task), class: "btn" %>
+                <%= link_to 'Delete', project_task_path(@project, task), data: { confirm: "Are you sure?" }, 
+                                               method: :delete, class: "btn" %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
 </div>
+
