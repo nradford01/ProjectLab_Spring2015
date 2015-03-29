@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-	
+	enum field: %w(priority)
 	validates :name, presence: true
 	validates :description, presence: true
 	validate :past_due

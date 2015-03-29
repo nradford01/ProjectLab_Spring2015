@@ -11,13 +11,17 @@ def setup
   end
 
   test "Tasks should belong to project when created/update" do
-   post :create, project_id: @project.id, task: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes) }
+   post :create, project_id: @project.id, task: { :name => 'Test', 
+                                                  :description => 'Test description',
+                                                  :due_date => (Time.current + 1.minutes) }
    task = assigns(:task)
    assert_equal @project.id, task.project_id
   end
 
   test "Deleting a project should delete all of its tasks" do
-    post :create, project_id: @project.id, task: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes) }
+    post :create, project_id: @project.id, task: { :name => 'Test', 
+                                                   :description => 'Test description',
+                                                   :due_date => (Time.current + 1.minutes) }
     task = assigns(:task)
     assert_difference('Task.count', -@project.tasks.count) do
       @project.destroy
