@@ -14,7 +14,10 @@
 			<% if @task.user_id == nil %>
 			<%= f.hidden_field :user_id, value: current_user.id, class: 'form-control'  %>	  
 			<% end %>
-		  
+		  		  
+		  <b>Assign to</b>
+		  <%= f.select(:assigned_user_id, @user_options) %>
+
 		  <%= f.submit "Submit", class: "btn submit-btn"  %>
 		<% end %>
 	</div>
