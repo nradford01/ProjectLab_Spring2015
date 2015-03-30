@@ -1,6 +1,8 @@
 class ProjectsController < ApplicationController
 
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index]
+  before_action :set_user
 
   def show
   end
@@ -46,10 +48,14 @@ class ProjectsController < ApplicationController
   private
   
     def project_params
-      params.require(:project).permit(:name, :description, :due_date)
+      params.require(:project).permit(:name, :description, :due_date, :user_id)
     end
 
     def set_project
       @project = Project.find(params[:id])
+    end
+
+    def set_user
+      @user = current_user
     end
 end

@@ -7,7 +7,16 @@
 		  <%= f.text_area :description, class: 'form-control'  %>
 
 		  <%= f.label :due_date %> 
-			<%= f.datetime_select :due_date, class: 'form-control'  %>			  
+			<%= f.datetime_select :due_date, class: 'form-control'  %>
+			
+			<%= f.hidden_field :project_id, value: @project.id, class: 'form-control'  %>
+
+			<% if @task.user_id == nil %>
+			<%= f.hidden_field :user_id, value: current_user.id, class: 'form-control'  %>	  
+			<% end %>
+		  		  
+		  <b>Assign to</b>
+		  <%= f.select(:assigned_user_id, @user_options) %>
 
 		  <%= f.submit "Submit", class: "btn submit-btn"  %>
 		<% end %>

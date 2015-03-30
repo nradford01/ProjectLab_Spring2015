@@ -2,7 +2,6 @@ one:
  first_name: First
  last_name: Last
  email: test@test.com
-
 two:
  first_name: Example
  last_name: Example
