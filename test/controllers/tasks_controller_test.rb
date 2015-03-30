@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TasksControllerTest < ActionController::TestCase
   
-def setup
+  def setup
     @user = users(:one)
     @other_user = users(:two)
     @project = projects(:one)
@@ -45,6 +45,7 @@ def setup
     post :create, project_id: @project.id, task: { :name => 'Test', :description => 'Test description', :assigned_user_id => @other_user.id,
                                                    :due_date => (Time.current + 1.minutes), :user_id => current_user.id}
     task = assigns(:task)
+    assert_not_equal @user.id, task.assignee.id
     assert_equal @other_user.id, task.assignee.id 
   end                               
 end
