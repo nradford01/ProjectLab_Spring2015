@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_project
-  before_action :user_signed_in?
-
+  before_action :authenticate_user!
+  
   def new
     @task = @project.tasks.build
   end
