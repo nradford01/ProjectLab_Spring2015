@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
 
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :user_signed_in?, except: [:index]
+  
   def show
   end
 

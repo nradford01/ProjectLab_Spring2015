@@ -1,5 +1,7 @@
 class Project < ActiveRecord::Base
-	
+	belongs_to :user
+  has_many :tasks, dependent: :destroy
+
 	validates :name, presence: true
 	validates :description, presence: true
 	validate :past_due
@@ -10,5 +12,4 @@ class Project < ActiveRecord::Base
 		end
 	end
 
-  has_many :tasks, dependent: :destroy
 end
