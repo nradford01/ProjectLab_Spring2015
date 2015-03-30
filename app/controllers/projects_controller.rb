@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
 
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index]
+  before_action :set_user
 
   def show
   end
@@ -52,5 +53,9 @@ class ProjectsController < ApplicationController
 
     def set_project
       @project = Project.find(params[:id])
+    end
+
+    def set_user
+      @user = current_user
     end
 end
