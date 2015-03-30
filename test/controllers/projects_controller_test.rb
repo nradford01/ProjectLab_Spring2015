@@ -38,4 +38,11 @@ class ProjectsControllerTest < ActionController::TestCase
 		project = assigns(:project)
 		assert_equal project.name, @new_params[:name]
 	end
+
+	test "Creating a project should assign it to a user" do
+    sign_in @user
+		post :create, project: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes)}
+		project = assigns(:project)
+    assert_equal(project.user_id, project.user)
+  end
 end
