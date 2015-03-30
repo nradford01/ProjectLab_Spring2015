@@ -1,8 +1,7 @@
 class TasksController < ApplicationController
-  before_action :set_project
   before_action :authenticate_user!
-  before_action :set_user
-  before_action :set_all_users
+  before_action :set_project
+  before_action :set_all_users, except: :destroy
   
   def new
     @task = @project.tasks.build
@@ -48,11 +47,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :due_date, :project_id, :user_id, :assigned_user_id)
-  end
-
-  def set_user
-    @user = current_user
+    params.require(:task).permit(:name, :description, :due_date, :project_id, :user_id, :assigned_user_id, :complete, :priority)
   end
 
   def set_all_users

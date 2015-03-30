@@ -20,8 +20,10 @@ ActiveRecord::Schema.define(version: 20150330181040) do
     t.string   "name"
     t.text     "description"
     t.datetime "due_date"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "complete",    default: false
+    t.integer  "priority",    default: 2
     t.integer  "user_id"
   end
 
@@ -30,8 +32,10 @@ ActiveRecord::Schema.define(version: 20150330181040) do
     t.text     "description"
     t.datetime "due_date"
     t.integer  "project_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.boolean  "complete",         default: false
+    t.integer  "priority",         default: 2
     t.integer  "user_id"
     t.integer  "assigned_user_id"
   end
