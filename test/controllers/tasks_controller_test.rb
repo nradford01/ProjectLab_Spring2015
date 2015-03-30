@@ -47,5 +47,15 @@ class TasksControllerTest < ActionController::TestCase
     task = assigns(:task)
     assert_not_equal @user.id, task.assignee.id
     assert_equal @other_user.id, task.assignee.id 
-  end                               
+  end   
+
+  test "Can assign a task to the current user" do
+    sign_in @user
+    current_user = @user
+    post :create, project_id: @project.id, task: { :name => 'Test', :description => 'Test description', :assigned_user_id => current_user.id,
+                                                   :due_date => (Time.current + 1.minutes), :user_id => current_user.id}
+    task = assigns(:task)
+    assert_equal @user.id, task.assignee.id
+    assert_not_equal @other_user.id, task.assignee.id 
+  end                            
 end
