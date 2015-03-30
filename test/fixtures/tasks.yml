@@ -4,7 +4,11 @@ one:
   name: MyString
   description: MyText
   due_date: 2015-03-26 20:34:34
+  user_id: 1
+  assigned_user_id: 2
 two:
   name: MyString
   description: MyText
   due_date: 2015-03-26 20:34:34
+  user_id: 2
+  assigned_user_id: 1
