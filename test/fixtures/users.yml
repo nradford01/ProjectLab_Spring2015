@@ -2,10 +2,7 @@ one:
  first_name: First
  last_name: Last
  email: test@test.com
- id: 1
-
 two:
  first_name: Example
  last_name: Example
  email: example@example.com
- id: 2
