@@ -12,7 +12,8 @@ class ProjectsControllerTest < ActionController::TestCase
 	test "should create project" do
 		sign_in @user
 		assert_difference('Project.count', 1) do
-			post :create, project: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes), :user_id => 1}	
+			post :create, project: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes), 
+															 :user_id => 1}	
 		end
 		assert_redirected_to projects_path
 	end
@@ -42,8 +43,23 @@ class ProjectsControllerTest < ActionController::TestCase
 	test "Creating a project should assign it to the current user" do
     sign_in @user
     current_user = @user
-		post :create, project: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes), :user_id => current_user.id}
+		post :create, project: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes), 
+														 :user_id => current_user.id }
 		project = assigns(:project)
 		assert_equal current_user.id, project.user.id
   end
+
+  test "Editing a project should not assign it to another user" do
+  	sign_in @user
+  	post :create, project: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes), 
+  													 :user_id => @user.id }
+  	project = assigns(:project)
+  	sign_out @user
+  	sign_in @other_user
+		get :edit, id: project.id
+		assert_template :edit
+		patch :update, id: project.id, project: @new_params
+		project = assigns(:project)
+		assert_equal @user.id, project.user_id
+	end
 end
