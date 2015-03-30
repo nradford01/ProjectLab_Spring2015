@@ -1,8 +1,10 @@
 class Project < ActiveRecord::Base
-	enum field: %w(priority)
+	enum priority: ['whenever', 'low', 'medium', 'high', 'immediate']
+
 	validates :name, presence: true
 	validates :description, presence: true
 	validate :past_due
+
 
 	def past_due
 		if due_date <= Time.now

@@ -1,4 +1,6 @@
 class Task < ActiveRecord::Base
+  enum priority: ['whenever', 'low', 'medium', 'high', 'immediate']
+
   belongs_to :project
 
   validates :name, presence: true

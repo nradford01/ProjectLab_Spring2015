@@ -9,7 +9,9 @@ class ProjectsControllerTest < ActionController::TestCase
 
 	test "should create project" do
 		assert_difference('Project.count', 1) do
-			post :create, project: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes)}	
+			post :create, project: { :name => 'Test', 
+															 :description => 'Test description' ,
+															 :due_date => (Time.current + 1.minutes)}	
 		end
 		assert_redirected_to projects_path
 	end
@@ -32,4 +34,21 @@ class ProjectsControllerTest < ActionController::TestCase
 		project = assigns(:project)
 		assert_equal project.name, @new_params[:name]
 	end
+
+	test "Priority Should be medium" do
+		post :create, id: @project.id, project: { :name => 'Test', 
+																				 :description => 'Testing, Testing.', 
+																				 :due_date => (Time.current + 1.minutes) }
+		project = assigns(:project)
+		assert_equal project.priority, "medium"
+	end	
+
+	test "completed should be false" do 
+		post :create, id: @project.id, project: { :name => 'Test',
+																							:description => 'Testing, again.',
+																							:due_date => (Time.current + 1.minutes) }
+		project = assigns(:project)
+		assert_equal project.complete, false																					
+	
+	end	
 end

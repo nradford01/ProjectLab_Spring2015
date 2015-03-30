@@ -7,7 +7,11 @@
 		  <%= f.text_area :description, class: 'form-control'  %>
 
 		  <%= f.label :due_date %> 
-			<%= f.datetime_select :due_date, class: 'form-control'  %>			  
+			<%= f.datetime_select :due_date, class: 'form-control'  %>	
+
+
+			<%= f.label :priority %>
+			<%= f.select :priority, Project.priorities.keys.map { |s| [s.humanize, s] }, class: "form-control" %>       		  
 
 		  <%= f.submit "Submit", class: "btn submit-btn"  %>
 		<% end %>

@@ -8,7 +8,7 @@
 	    	<th>Description</th>
 	      <th>Due Date(Mountain Time)</th>
 	      <th>Time left</th>
-	      <th></th>
+	      <th>Priority</th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -17,11 +17,12 @@
 				  <td><%= project.name %></td>
 				  <td><%= project.description %></td>
 				  <td><%= project.due_date.strftime("%B %d, %Y") %></td>
-				  <% if :complete == true %>
-				 		<td><%= puts "Completed!" %></td>
+				  <% if project.complete == true %>
+				 		<td><%= "Completed!" %></td>
 				 	<% else %>	
 				  <td><%= distance_of_time_in_words_to_now(project.due_date) %></td>
 				 <% end %> 
+				 <td><%= project.priority %></td>
 				  <td>
 				  	<div class="btn-group btn-group-xs">
 							<%= link_to 'View', project_path(project), class: "btn" %>
@@ -31,6 +32,7 @@
 							<span><%= form_for project do |f| %>
                 <%= f.check_box :complete %>
                 <%= f.label :complete %>
+                <%= f.select :priority, Project.priorities.keys.map { |s| [s.humanize, s] }, class: "form-control" %>
                 <%= f.submit %>  
                 <% end %>             															 
 							</span>	

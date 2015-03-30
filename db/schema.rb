@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20150329200605) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.boolean  "complete",    default: false
-    t.integer  "priority"
+    t.integer  "priority",    default: 2
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20150329200605) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.boolean  "complete",    default: false
-    t.integer  "priority"
+    t.integer  "priority",    default: 2
   end
 
   add_index "tasks", ["project_id"], name: "index_tasks_on_project_id", using: :btree

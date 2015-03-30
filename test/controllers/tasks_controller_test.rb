@@ -28,4 +28,20 @@ def setup
     end
   end
 
+  test "Priority Should be medium" do
+    post :create,project_id: @project.id, id: @task.id, task: { :name => 'Test', 
+                                                                :description => 'Testing, Testing.', 
+                                                                :due_date => (Time.current + 1.minutes) }
+    task = assigns(:task)
+    assert_equal task.priority, "medium"
+  end 
+
+  test "completed should be false" do 
+    post :create, project_id: @project.id, id: @task.id, task: { :name => 'Test',
+                                                                :description => 'Testing, again.',
+                                                                :due_date => (Time.current + 1.minutes) }
+    task = assigns(:task)   
+    assert_equal task.complete, false
+  end 
+
 end
