@@ -3,14 +3,17 @@ class TasksController < ApplicationController
 
   def new
     @task = @project.tasks.build
+    @priority= Task.priorities
   end
 
   def edit
     @task = Task.find(params[:id])
+    @priority= Task.priorities
   end
 
   def create
     @task = @project.tasks.build(task_params)
+    @priority= Task.priorities
     if @task.save
       flash[:success] = "Task Created"
       redirect_to @project
@@ -22,6 +25,7 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
+    @priority= Task.priorities
     if @task.update(task_params)
       flash[:success] = "Updated the task: '#{@task.name}'"
       redirect_to @project
@@ -45,7 +49,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :due_date, :project_id)
+    params.require(:task).permit(:name, :description, :due_date, :project_id, :priority, :complete)
   end
 end
     

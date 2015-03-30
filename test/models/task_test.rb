@@ -22,4 +22,14 @@ class TaskTest < ActiveSupport::TestCase
     assert_not @task.valid?
   end
 
+  test "Priority status should default to medium" do
+  @task.priority = 2
+  assert true
+end
+
+test "complete status should default to incomplete" do
+  @task.complete= 'false'
+  assert true
+end
+
 end

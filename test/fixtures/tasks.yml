@@ -1,10 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+
+
 one:
   name: MyString
   description: MyText
   due_date: 2015-03-26 20:34:34
   project_id: 
+  complete: 
+  priority:  
 
 two:
   name: MyString
