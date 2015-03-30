@@ -11,7 +11,7 @@
 			
 			<%= f.hidden_field :project_id, value: @project.id, class: 'form-control'  %>
 
-			<% if @project.user_id == nil %>
+			<% if @task.user_id == nil %>
 			<%= f.hidden_field :user_id, value: current_user.id, class: 'form-control'  %>	  
 			<% end %>
 		  
