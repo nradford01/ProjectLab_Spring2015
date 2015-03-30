@@ -17,6 +17,7 @@
           <th>Time left</th>
           <th>Creator</th>
           <th>Assigned to</th>
+          <th>Priority</th>
           <th></th>
         </tr>
       </thead>
@@ -29,12 +30,20 @@
             <td><%= distance_of_time_in_words_to_now(task.due_date) %></td>
             <td><%= task.user.first_name %> <%= task.user.last_name %></td>
             <td><%= task.assignee.first_name %> <%= task.assignee.last_name %></td>
+            <td><%= task.priority %> </td>
             <td>
               <div class="btn-group btn-group-xs">
                 <%= link_to 'Edit', edit_project_task_path(@project, task), class: "btn" %>
                 <%= link_to 'Delete', project_task_path(@project, task), data: { confirm: "Are you sure?" }, 
                                                method: :delete, class: "btn" %>
               </div>
+              <span><%= form_for @project do |f| %>
+                <%= f.label :complete %>
+                <%= f.check_box :complete %>
+                <%= f.select :priority, Task.priorities.keys.map { |s| [s.humanize, s] }, class: "form-control" %>
+                <%= f.submit %>  
+                <% end %>                                                                              
+              </span>
             </td>
           </tr>
         <% end %>

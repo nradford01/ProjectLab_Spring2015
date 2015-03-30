@@ -5,14 +5,18 @@ class ProjectsController < ApplicationController
   before_action :set_user
 
   def show
+
   end
 
   def index
     @projects = Project.all
+    @priorities = Project.priorities
+
   end
 
   def new
     @project = Project.new
+    @priorities = Project.priorities
   end
 
   def create
@@ -30,6 +34,7 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    @priority = Project.priorities
     if @project.update(project_params)
       flash[:success] = "Updated the project: '#{@project.name}'"
       redirect_to projects_path
@@ -48,11 +53,12 @@ class ProjectsController < ApplicationController
   private
   
     def project_params
-      params.require(:project).permit(:name, :description, :due_date, :user_id)
+      params.require(:project).permit(:name, :description, :due_date, :complete, :priority, :user_id)
     end
 
     def set_project
       @project = Project.find(params[:id])
+      @priorities = Project.priorities
     end
 
     def set_user

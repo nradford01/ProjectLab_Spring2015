@@ -10,10 +10,10 @@ class TasksControllerTest < ActionController::TestCase
     @task = tasks(:one)
     @other_task = tasks(:two)
     @new_params = { name: "Updated", description: "This is updated"}
+    sign_in @user
   end
 
   test "Tasks should belong to project when created/update" do
-    sign_in @user
     post :create, project_id: @project.id, task: { :name => 'Test', :description => 'Test description' , 
                                                    :due_date => (Time.current + 1.minutes) }
     task = assigns(:task)
@@ -21,9 +21,9 @@ class TasksControllerTest < ActionController::TestCase
   end
 
   test "Deleting a project should delete all of its tasks" do
-    sign_in @user
-    post :create, project_id: @project.id, task: { :name => 'Test', :description => 'Test description' , 
-                                                   :due_date => (Time.current + 1.minutes) }
+   post :create, project_id: @project.id, task: { :name => 'Test', 
+                                                  :description => 'Test description',
+                                                  :due_date => (Time.current + 1.minutes) }
     task = assigns(:task)
     assert_difference('Task.count', -@project.tasks.count) do
       @project.destroy
@@ -58,4 +58,21 @@ class TasksControllerTest < ActionController::TestCase
     assert_equal @user.id, task.assignee.id
     assert_not_equal @other_user.id, task.assignee.id 
   end                            
+
+  test "Priority Should be medium" do
+    post :create,project_id: @project.id, id: @task.id, task: { :name => 'Test', 
+                                                                :description => 'Testing, Testing.', 
+                                                                :due_date => (Time.current + 1.minutes) }
+    task = assigns(:task)
+    assert_equal task.priority, "medium"
+  end 
+
+  test "completed should be false" do 
+    post :create, project_id: @project.id, id: @task.id, task: { :name => 'Test',
+                                                                :description => 'Testing, again.',
+                                                                :due_date => (Time.current + 1.minutes) }
+    task = assigns(:task)   
+    assert_equal task.complete, false
+  end 
+
 end

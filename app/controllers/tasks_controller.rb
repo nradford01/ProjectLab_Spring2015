@@ -6,6 +6,8 @@ class TasksController < ApplicationController
   
   def new
     @task = @project.tasks.build
+    @priorities = Task.priorities
+
   end
 
   def edit

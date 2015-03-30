@@ -1,4 +1,6 @@
 class Task < ActiveRecord::Base
+  enum priority: ['whenever', 'low', 'medium', 'high', 'immediate']
+
   belongs_to :project
   belongs_to :user
   belongs_to :assignee, class_name: "User", foreign_key: "assigned_user_id" 
