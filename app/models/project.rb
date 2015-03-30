@@ -4,6 +4,7 @@ class Project < ActiveRecord::Base
 
 	validates :name, presence: true
 	validates :description, presence: true
+	validates :user_id, presence: true
 	validate :past_due
 
 	def past_due
