@@ -1,8 +1,6 @@
 class ProjectsController < ApplicationController
-
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index]
-  before_action :set_user
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   def show
 
@@ -10,13 +8,10 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all
-    @priorities = Project.priorities
-
   end
 
   def new
     @project = Project.new
-    @priorities = Project.priorities
   end
 
   def create
@@ -58,10 +53,6 @@ class ProjectsController < ApplicationController
 
     def set_project
       @project = Project.find(params[:id])
-      @priorities = Project.priorities
     end
 
-    def set_user
-      @user = current_user
-    end
 end
