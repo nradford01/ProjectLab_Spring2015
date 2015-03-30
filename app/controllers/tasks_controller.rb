@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_project
+  before_action :user_signed_in?
 
   def new
     @task = @project.tasks.build
