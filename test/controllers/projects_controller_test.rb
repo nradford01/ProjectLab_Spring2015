@@ -61,5 +61,6 @@ class ProjectsControllerTest < ActionController::TestCase
 		patch :update, id: project.id, project: @new_params
 		project = assigns(:project)
 		assert_equal @user.id, project.user_id
+		assert_not_equal @other_user, project.user_id
 	end
 end
