@@ -41,7 +41,6 @@ class ProjectsControllerTest < ActionController::TestCase
 
 	test "Creating a project should assign it to a user" do
     sign_in @user
-		post :create, project: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes)}
-	
+		
   end
 end
