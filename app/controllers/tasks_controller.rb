@@ -47,7 +47,7 @@ class TasksController < ApplicationController
       flash[:success] = "Deleted the task named: '#{@task.name}'"
       redirect_to @project
     else
-      flash[:danger] = "You are not authorized to edit this task"
+      flash[:danger] = "You are not authorized to delete this task"
       redirect_to @project
     end
   end

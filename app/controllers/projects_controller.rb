@@ -26,6 +26,10 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    if current_user.id != project.user_id
+      flash[:danger] = "You are not authorized to edit this project."
+      redirect to @projects
+    end
   end
 
   def update
@@ -40,9 +44,14 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project.destroy
-    flash[:success] = "Destroyed the project named: '#{@project.name}'"
-    redirect_to projects_path
+    if current_user.id == project.user_id
+      @project.destroy
+      flash[:success] = "Destroyed the project named: '#{@project.name}'"
+      redirect_to projects_path
+    else
+      flash[:danger] = "You are not authorized to delete this project."
+      redirect_to @project
+    end
   end
 
   private
