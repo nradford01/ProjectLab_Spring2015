@@ -33,13 +33,18 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @priority = Project.priorities
-    if @project.update(project_params)
-      flash[:success] = "Updated the project: '#{@project.name}'"
-      redirect_to projects_path
+    if current_user.id == @project.user_id
+      @priority = Project.priorities
+      if @project.update(project_params)
+        flash[:success] = "Updated the project: '#{@project.name}'"
+        redirect_to projects_path
+      else
+        flash[:danger] = "Please fill in every field and ensure the due date is in the future."
+        render :edit
+      end
     else
-      flash[:danger] = "Please fill in every field and ensure the due date is in the future."
-      render :edit
+      flash[:danger] = "You are not authorized to edit this project."
+      redirect_to @project
     end
   end
 

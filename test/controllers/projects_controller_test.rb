@@ -38,7 +38,10 @@ class ProjectsControllerTest < ActionController::TestCase
 	end
 
 	test 'test should update' do
-		patch :update, id: @project.id, project: @new_params
+		post :create, project: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes), 
+														 :user_id => @user.id }
+		project = assigns(:project)
+		patch :update, id: project.id, project: @new_params
 		project = assigns(:project)
 		assert_equal project.name, @new_params[:name]
 	end
@@ -64,7 +67,7 @@ class ProjectsControllerTest < ActionController::TestCase
 		patch :update, id: @project.id, project: @new_params
 		updated_project = assigns(:project)
 		assert_not_equal updated_project.name, @new_params[:name]
-  	assert_redirected_to projects_path
+  	assert_redirected_to project_path
 	end
 
 	test "Priority Should be medium" do
