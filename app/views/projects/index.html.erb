@@ -26,12 +26,14 @@
 				  	<td><%= distance_of_time_in_words_to_now(project.due_date) %></td>
 				  <% end %> 
 				  <td><%= project.priority.capitalize %></td>
-				  <td>
+				  <td>	
 				  	<div class="btn-group btn-group-xs">
 							<%= link_to 'View', project_path(project), class: "btn" %>
-							<%= link_to 'Edit', edit_project_path(project), class: "btn" %>
-							<%= link_to 'Delete', project, data: { confirm: "Are you sure you wish to delete this project?" }, 
+							<% if current_user.id == project.user_id %>
+								<%= link_to 'Edit', edit_project_path(project), class: "btn" %>
+								<%= link_to 'Delete', project, data: { confirm: "Are you sure you wish to delete this project?" }, 
 																						 method: :delete, class: "btn" %>
+							<% end %>
 						</div>	
 					</td>
 				</tr>

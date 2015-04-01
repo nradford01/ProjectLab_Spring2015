@@ -8,9 +8,9 @@ class TasksController < ApplicationController
   end
 
   def edit
-    if current_user.id == task.assigned_user_id || 
-       current_user.id == task.user_id
-      @task = Task.find(params[:id])
+    @task = Task.find(params[:id])
+    if current_user.id == @task.assigned_user_id || 
+       current_user.id == @task.user_id
     else
       flash[:danger] = "You are not authorized to edit this task"
       redirect_to @project
@@ -40,9 +40,9 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    if current_user.id == task.assigned_user_id || 
-       current_user.id == task.user_id
-      @task = Task.find(params[:id])
+    @task = Task.find(params[:id])
+    if current_user.id == @task.assigned_user_id || 
+       current_user.id == @task.user_id  
       @task.destroy
       flash[:success] = "Deleted the task named: '#{@task.name}'"
       redirect_to @project
