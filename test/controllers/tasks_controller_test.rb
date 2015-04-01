@@ -32,7 +32,6 @@ class TasksControllerTest < ActionController::TestCase
   end
 
   test "Creating a task should assign it to a user" do
-    sign_in @user
     current_user = @user
     post :create, project_id: @project.id, task: { :name => 'Test', :description => 'Test description' , 
                                                    :due_date => (Time.current + 1.minutes), :user_id => @user.id}
@@ -41,7 +40,6 @@ class TasksControllerTest < ActionController::TestCase
   end
 
   test "Can assign a task to another user" do
-    sign_in @user
     current_user = @user
     post :create, project_id: @project.id, task: { :name => 'Test', :description => 'Test description', :assigned_user_id => @other_user.id,
                                                    :due_date => (Time.current + 1.minutes), :user_id => current_user.id}
@@ -51,7 +49,6 @@ class TasksControllerTest < ActionController::TestCase
   end   
 
   test "Can assign a task to the current user" do
-    sign_in @user
     current_user = @user
     post :create, project_id: @project.id, task: { :name => 'Test', :description => 'Test description', :assigned_user_id => current_user.id,
                                                    :due_date => (Time.current + 1.minutes), :user_id => current_user.id}
