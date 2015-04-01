@@ -2,13 +2,13 @@ class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project
   before_action :set_all_users, except: :destroy
-  
+  before_action :set_task, only: [:edit, :update, :destroy]
+
   def new
     @task = @project.tasks.build
   end
 
   def edit
-    @task = Task.find(params[:id])
     if current_user.id == @task.assigned_user_id || 
        current_user.id == @task.user_id
     else
@@ -29,7 +29,6 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = Task.find(params[:id])
     if current_user.id == @task.assigned_user_id || 
        current_user.id == @task.user_id
       if @task.update(task_params)
@@ -46,7 +45,6 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
     if current_user.id == @task.assigned_user_id || 
        current_user.id == @task.user_id  
       @task.destroy
@@ -62,6 +60,10 @@ class TasksController < ApplicationController
 
   def set_project
     @project = Project.find(params[:project_id])
+  end
+
+  def set_task
+    @task = Task.find(params[:id])
   end
 
   def task_params
