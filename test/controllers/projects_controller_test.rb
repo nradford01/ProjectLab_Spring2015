@@ -51,18 +51,20 @@ class ProjectsControllerTest < ActionController::TestCase
 		assert_equal current_user.id, project.user.id
   end
 
-  test "Editing a project should not assign it to another user" do
-  	post :create, project: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes), 
+  test "Project can only be edited by the creator" do
+		post :create, project: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes), 
   													 :user_id => @user.id }
   	project = assigns(:project)
-  	sign_out @user
-  	sign_in @other_user
-		get :edit, id: project.id
+  	get :edit, id: project.id
+  	assert_response :success
 		assert_template :edit
-		patch :update, id: project.id, project: @new_params
-		project = assigns(:project)
-		assert_equal @user.id, project.user_id
-		assert_not_equal @other_user, project.user_id
+		sign_out @user
+		sign_in @other_user
+		get :edit, id: project.id
+		patch :update, id: @project.id, project: @new_params
+		updated_project = assigns(:project)
+		assert_not_equal updated_project.name, @new_params[:name]
+  	assert_redirected_to projects_path
 	end
 
 	test "Priority Should be medium" do
@@ -80,18 +82,5 @@ class ProjectsControllerTest < ActionController::TestCase
 		project = assigns(:project)
 		assert_equal project.complete, false																					
 	
-	end
-
-	test "Project can only be edited by the creator" do
-		post :create, project: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes), 
-  													 :user_id => @user.id }
-  	project = assigns(:project)
-  	get :edit, id: project.id
-  	assert_response :success
-		assert_template :edit
-		sign_out @user
-		sign_in @other_user
-		get :edit, id: project.id
-  	assert_redirected_to projects_path
 	end
 end
