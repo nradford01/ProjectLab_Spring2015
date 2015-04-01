@@ -30,12 +30,18 @@ class TasksController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    if @task.update(task_params)
-      flash[:success] = "Updated the task: '#{@task.name}'"
-      redirect_to @project
+    if current_user.id == @task.assigned_user_id || 
+       current_user.id == @task.user_id
+      if @task.update(task_params)
+        flash[:success] = "Updated the task: '#{@task.name}'"
+        redirect_to @project
+      else
+        flash[:danger] = "Please fill in every field and ensure the due date is in the future."
+        render :edit
+      end
     else
-      flash[:danger] = "Please fill in every field and ensure the due date is in the future."
-      render :edit
+      flash[:danger] = "You are not authorized to edit this task"
+      redirect_to @project
     end
   end
 
