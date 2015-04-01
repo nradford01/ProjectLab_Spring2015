@@ -70,6 +70,18 @@ class ProjectsControllerTest < ActionController::TestCase
   	assert_redirected_to project_path
 	end
 
+	test "Project can not be deleted by other user" do
+		post :create, project: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes), 
+  													 :user_id => @user.id }
+  	project = assigns(:project)
+  	sign_out @user
+  	sign_in @other_user
+ 		assert_no_difference('Project.count') do
+			delete :destroy, id: project.id
+		end
+		assert_redirected_to project
+	end
+
 	test "Priority Should be medium" do
 		post :create, id: @project.id, project: { :name => 'Test', 
 																				 :description => 'Testing, Testing.', 
