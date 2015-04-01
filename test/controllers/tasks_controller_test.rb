@@ -97,4 +97,16 @@ class TasksControllerTest < ActionController::TestCase
     assert_not_equal updated_task.name, @new_params[:name]
     assert_redirected_to @project
   end
+
+  test "Task can not be deleted by other user" do
+    post :create, project_id: @project.id, task: { :name => 'Test', :description => 'Test description', :assigned_user_id => @other_user.id,
+                                                   :due_date => (Time.current + 1.minutes), :user_id => @user.id}
+    task = assigns(:task)
+    sign_out @user
+    sign_in @third_user
+    assert_no_difference('Task.count') do
+      get :destroy, project_id: @project.id, id: task.id
+    end
+    assert_redirected_to @project
+  end
 end
