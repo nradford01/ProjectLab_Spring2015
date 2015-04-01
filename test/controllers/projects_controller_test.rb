@@ -19,14 +19,20 @@ class ProjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should delete project" do
+		post :create, project: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes), 
+														 :user_id => @user.id }
+		project = assigns(:project)
 		assert_difference('Project.count', -1) do
-			delete :destroy, id: @project.id
+			delete :destroy, id: project.id
 		end
 		assert_redirected_to projects_path
 	end
 
 	test "test should edit" do
-		get :edit, id: @project.id
+		post :create, project: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes), 
+														 :user_id => @user.id }
+		project = assigns(:project)
+		get :edit, id: project.id
 		assert_response :success
 		assert_template :edit
 	end
