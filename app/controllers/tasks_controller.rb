@@ -58,20 +58,20 @@ class TasksController < ApplicationController
 
   private
 
-  def set_project
-    @project = Project.find(params[:project_id])
-  end
+    def set_project
+      @project = Project.find(params[:project_id])
+    end
 
-  def set_task
-    @task = Task.find(params[:id])
-  end
+    def set_task
+      @task = Task.find(params[:id])
+    end
 
-  def task_params
-    params.require(:task).permit(:name, :description, :due_date, :project_id, :user_id, :assigned_user_id, :complete, :priority)
-  end
+    def task_params
+      params.require(:task).permit(:name, :description, :due_date, :project_id, :user_id, :assigned_user_id, :complete, :priority)
+    end
 
-  def set_all_users
-    @user_options = User.all.map{|u| [ u.first_name + " " + u.last_name, u.id ] }
-  end
+    def set_all_users
+      @user_options = User.all.map{|u| [ u.first_name + " " + u.last_name, u.id ] }
+    end
 end
     
