@@ -74,5 +74,18 @@ class ProjectsControllerTest < ActionController::TestCase
 		project = assigns(:project)
 		assert_equal project.complete, false																					
 	
-	end	
+	end
+
+	test "Project can only be edited by the creator" do
+		post :create, project: { :name => 'Test', :description => 'Test description' , :due_date => (Time.current + 1.minutes), 
+  													 :user_id => @user.id }
+  	project = assigns(:project)
+  	get :edit, id: project.id
+  	assert_response :success
+		assert_template :edit
+		sign_out @user
+		sign_in @other_user
+		get :edit, id: project.id
+  	assert_redirected_to projects_path
+	end
 end
