@@ -15,9 +15,9 @@
 			<%= f.label :complete %> 
 			<%= f.check_box :complete %> 
 
-			<% if @project.user_id == nil %>
+			
 			<%= f.hidden_field :user_id, value: current_user.id, class: 'form-control'  %>	  
-			<% end %>
+			
 			
 		  <%= f.submit "Submit", class: "btn submit-btn"  %>
 		<% end %>
