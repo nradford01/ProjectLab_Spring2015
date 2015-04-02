@@ -26,23 +26,37 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    if current_user.id != @project.user_id
+      flash[:danger] = "You are not authorized to edit this project."
+      redirect_to projects_path
+    end
   end
 
   def update
-    @priority = Project.priorities
-    if @project.update(project_params)
-      flash[:success] = "Updated the project: '#{@project.name}'"
-      redirect_to projects_path
+    if current_user.id == @project.user_id
+      @priority = Project.priorities
+      if @project.update(project_params)
+        flash[:success] = "Updated the project: '#{@project.name}'"
+        redirect_to projects_path
+      else
+        flash[:danger] = "Please fill in every field and ensure the due date is in the future."
+        render :edit
+      end
     else
-      flash[:danger] = "Please fill in every field and ensure the due date is in the future."
-      render :edit
+      flash[:danger] = "You are not authorized to edit this project."
+      redirect_to @project
     end
   end
 
   def destroy
-    @project.destroy
-    flash[:success] = "Destroyed the project named: '#{@project.name}'"
-    redirect_to projects_path
+    if current_user.id == @project.user_id
+      @project.destroy
+      flash[:success] = "Destroyed the project named: '#{@project.name}'"
+      redirect_to projects_path
+    else
+      flash[:danger] = "You are not authorized to delete this project."
+      redirect_to @project
+    end
   end
 
   private

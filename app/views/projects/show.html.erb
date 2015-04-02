@@ -37,9 +37,11 @@
             <td><%= task.priority.capitalize %> </td>
             <td>
               <div class="btn-group btn-group-xs">
-                <%= link_to 'Edit', edit_project_task_path(@project, task), class: "btn" %>
-                <%= link_to 'Delete', project_task_path(@project, task), data: { confirm: "Are you sure?" }, 
-                                               method: :delete, class: "btn" %>
+                <% if current_user.id == task.assigned_user_id || current_user.id == task.user_id %>
+                  <%= link_to 'Edit', edit_project_task_path(@project, task), class: "btn" %>
+                  <%= link_to 'Delete', project_task_path(@project, task), data: { confirm: "Are you sure?" }, 
+                                                 method: :delete, class: "btn" %>
+                <% end %>
               </div>
             </td>
           </tr>
