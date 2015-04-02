@@ -10,7 +10,8 @@
 		  <%= f.label :due_date %> 
 			<%= f.datetime_select :due_date, class: 'form-control'  %>
 			
-			<% if task.user_id == nil %>
+
+			<% if @task.user_id == nil || @task.user_id = current_user.id%>
 			<%= f.hidden_field :user_id, value: current_user.id, class: 'form-control'  %>	  
 			<% end %>
 		  		  
