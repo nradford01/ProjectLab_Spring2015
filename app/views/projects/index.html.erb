@@ -1,6 +1,8 @@
 <div class = 'container'>
 	<h2>Projects</h2>
-	<%=  link_to "Create New Project", new_project_path%>
+	<button type="button" class="btn" data-toggle="modal" data-target="#projectModal">
+		Create new project
+	</button>
 	<table class = 'table'>
 		<thead>
 	    <tr>
@@ -40,4 +42,19 @@
 			<% end %>
 	  </tbody>
 	</table>
+</div>
+
+<!-- Project Modal -->
+<div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">New Project</h4>
+      </div>
+      <div class="modal-body">
+        <%= render partial: 'project_form', locals: {:project => Project.new} %>
+      </div>
+    </div>
+  </div>
 </div>
