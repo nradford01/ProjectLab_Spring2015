@@ -1,4 +1,4 @@
 <div class = 'container'>
   <h2>Edit Task</h2>
-  <%= render 'task_form' %>
+  <%= render partial: 'tasks/task_form', locals: {:task => @task}%>
 </div>
