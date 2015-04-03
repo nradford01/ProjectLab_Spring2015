@@ -10,11 +10,9 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :index]
   get 'profile', to: 'users#profile', as: :profile
 
+  get 'complete/:id', to: 'tasks#complete', as: :complete
 
   resources :projects do
     resources :tasks, except: [:index, :show]
   end 
-
-  get 'complete/:id', to: 'tasks#complete', as: :complete
-  
 end

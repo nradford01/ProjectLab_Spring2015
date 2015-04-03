@@ -44,6 +44,7 @@
           <th>Assigned to</th>
           <th>Priority</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -53,15 +54,14 @@
             <td><%= task.name %></td>
             <td><%= task.description %></td>
             <td><%= task.due_date.strftime("%B %d, %Y, %I:%M %P") %></td>
-            <% if task.complete == true %>
-              <td><%= "Completed!" %></td>
-            <% else %>  
-              <td><%= distance_of_time_in_words_to_now(task.due_date) %></td>
-            <% end %> 
+            <td id="timeLeft-<%= task.id %>"><%= time_left(task) %></td> 
             <td><%= task.user.first_name %> <%= task.user.last_name %></td>
             <td><%= task.assignee.first_name %> <%= task.assignee.last_name %></td>
             <td><%= task.priority.capitalize %> </td>
-            <td>
+            <% if current_user.id == task.assigned_user_id || current_user.id == task.user_id %>
+            <td id="completeBtn-<%= task.id %>"><%= complete_button(task) %></td>
+            <% end %>
+            <td>  
               <div class="btn-group btn-group-xs">
                 <% if current_user.id == task.assigned_user_id || current_user.id == task.user_id %>
                   <%= link_to 'Edit', edit_project_task_path(@project, task), class: "btn" %>
