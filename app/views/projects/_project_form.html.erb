@@ -14,15 +14,8 @@
 			<%= f.select :priority, Project.priorities.keys.map { |s| [s.humanize, s] }, class: "form-control" %>       		 
 			<%= f.label :complete %> 
 			<%= f.check_box :complete %> 
-<<<<<<< HEAD
-
-			
-			<%= f.hidden_field :user_id, value: current_user.id, class: 'form-control'  %>	  
-			
-=======
 	
 			<%= f.hidden_field :user_id, value: current_user.id, class: 'form-control'  %>	  
->>>>>>> b5adfcc6aac7cc76331b7ac8179e4190425cf0dd
 			
 		  <%= f.submit "Submit", class: "btn submit-btn"  %>
 		<% end %>
