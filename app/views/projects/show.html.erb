@@ -5,8 +5,33 @@
 
   <h2>
   Tasks: 
-  <%= link_to "Add Task", new_project_task_path(@project), class: "btn btn-primary" %>
+  
+    <button type="button" class="btn" data-toggle="modal" data-target="#taskModal">
+      Add Task
+    </button>
   </h2>
+
+  <!-- Button trigger modal -->
+
+    <!-- Modal -->
+  <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">New Task</h4>
+        </div>
+        <div class="modal-body">
+
+          <%= render partial: 'tasks/task_form', locals: {:task => @project.tasks.build }%>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
 
   <table class = 'table'>
       <thead>
@@ -19,23 +44,24 @@
           <th>Assigned to</th>
           <th>Priority</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         <% @project.tasks.each do |task| %>
+        <% next if task.new_record? %>
           <tr>
             <td><%= task.name %></td>
             <td><%= task.description %></td>
             <td><%= task.due_date.strftime("%B %d, %Y, %I:%M %P") %></td>
-            <% if task.complete == true %>
-              <td><%= "Completed!" %></td>
-            <% else %>  
-              <td><%= distance_of_time_in_words_to_now(task.due_date) %></td>
-            <% end %> 
+            <td id="timeLeft-<%= task.id %>"><%= time_left(task) %></td> 
             <td><%= task.user.first_name %> <%= task.user.last_name %></td>
             <td><%= task.assignee.first_name %> <%= task.assignee.last_name %></td>
             <td><%= task.priority.capitalize %> </td>
-            <td>
+            <% if current_user.id == task.assigned_user_id || current_user.id == task.user_id %>
+            <td id="completeBtn-<%= task.id %>"><%= complete_button(task) %></td>
+            <% end %>
+            <td>  
               <div class="btn-group btn-group-xs">
                 <% if current_user.id == task.assigned_user_id || current_user.id == task.user_id %>
                   <%= link_to 'Edit', edit_project_task_path(@project, task), class: "btn" %>

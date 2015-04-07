@@ -1,5 +1,5 @@
   <div class="form-group">
-		<%= form_for [@project, @task] do |f| %>
+		<%= form_for [@project, task] do |f| %>
 			<%= render 'devise/shared/error_messages', object: f.object %>
 			<%= f.label :name	 %> 
 		  <%= f.text_field :name, class: 'form-control' %>
@@ -9,13 +9,13 @@
 
 		  <%= f.label :due_date %> 
 			<%= f.datetime_select :due_date, class: 'form-control'  %>
-			
-			<% if @task.user_id == nil %>
+
+			<% if task.user_id == nil || task.user_id = current_user.id%>
 			<%= f.hidden_field :user_id, value: current_user.id, class: 'form-control'  %>	  
 			<% end %>
 		  		  
 		  <b>Assign to</b>
-		  <%= f.select(:assigned_user_id, @user_options) %>
+		  <%= f.select(:assigned_user_id, User.all.map{|u| [ u.first_name + " " + u.last_name, u.id ] }) %>
 
 			<%= f.label :priority %>
 			<%= f.select :priority, Task.priorities.keys.map { |s| [s.humanize, s] }, class: "form-control" %>		

@@ -24,7 +24,7 @@ users = User.all
   due_date = Faker::Date.forward(1)
   users.each do |user| 
     project = user.projects.create!(name: name, description: description, due_date: due_date)
-    project.tasks.create!(name: name, description: description, due_date: due_date, user_id: user.id, assigned_user_id: rand(9))
+    project.tasks.create!(name: name, description: description, due_date: due_date, user_id: user.id, assigned_user_id: users.sample.id)
   end
 end
 

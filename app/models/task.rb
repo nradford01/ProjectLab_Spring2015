@@ -13,8 +13,12 @@ class Task < ActiveRecord::Base
   validate :past_due
 
   def past_due
-    if due_date <= Time.now
+    if due_date <= Time.now 
       errors.add(:due_date, "nothing in the past please")
     end
+  end
+    def toggle
+    self.complete = !self.complete
+    self.save
   end
 end
