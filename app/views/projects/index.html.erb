@@ -32,7 +32,7 @@
 				  	<div class="btn-group btn-group-xs">
 							<%= link_to 'View', project_path(project), class: "btn" %>
 							<% if user_signed_in? && current_user.id == project.user_id %>
-								<%= link_to 'Edit', edit_project_path(project), class: "btn" %>
+								<%= link_to 'Edit', edit_project_path(project), remote: true,class: "btn" %>
 								<%= link_to 'Delete', project, data: { confirm: "Are you sure you wish to delete this project?" }, 
 																						 method: :delete, class: "btn" %>
 							<% end %>
@@ -52,7 +52,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">New Project</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id= "ProjectModalBody">
         <%= render partial: 'project_form', locals: {:project => Project.new} %>
       </div>
     </div>
